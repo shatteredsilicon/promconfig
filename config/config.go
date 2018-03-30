@@ -22,10 +22,10 @@ import (
 	"strings"
 	"time"
 
-	config_util "github.com/prometheus/common/config"
+	config_util "github.com/Percona-Lab/promconfig/common/config"
+	sd_config "github.com/Percona-Lab/promconfig/discovery/config"
+	yaml_util "github.com/Percona-Lab/promconfig/util/yaml"
 	"github.com/prometheus/common/model"
-	sd_config "github.com/prometheus/prometheus/discovery/config"
-	yaml_util "github.com/prometheus/prometheus/util/yaml"
 	"gopkg.in/yaml.v2"
 )
 
@@ -474,8 +474,8 @@ func CheckTargetAddress(address model.LabelValue) error {
 
 // ClientCert contains client cert credentials.
 type ClientCert struct {
-	Cert string             `yaml:"cert"`
-	Key  config_util.Secret `yaml:"key"`
+	Cert string `yaml:"cert"`
+	Key  string `yaml:"key"`
 
 	// Catches all undefined fields and must be empty after parsing.
 	XXX map[string]interface{} `yaml:",inline"`
