@@ -20,7 +20,7 @@ import (
 
 	"github.com/prometheus/common/model"
 
-	yaml_util "github.com/Percona-Lab/promconfig/util/yaml"
+	yaml_util "github.com/shatteredsilicon/promconfig/util/yaml"
 )
 
 var (
