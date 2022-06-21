@@ -17,9 +17,9 @@ import (
 	"fmt"
 	"time"
 
-	config_util "github.com/Percona-Lab/promconfig/common/config"
-	yaml_util "github.com/Percona-Lab/promconfig/util/yaml"
 	"github.com/prometheus/common/model"
+	config_util "github.com/shatteredsilicon/promconfig/common/config"
+	yaml_util "github.com/shatteredsilicon/promconfig/util/yaml"
 )
 
 var (

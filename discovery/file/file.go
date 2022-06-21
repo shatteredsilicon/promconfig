@@ -18,8 +18,8 @@ import (
 	"regexp"
 	"time"
 
-	yaml_util "github.com/Percona-Lab/promconfig/util/yaml"
 	"github.com/prometheus/common/model"
+	yaml_util "github.com/shatteredsilicon/promconfig/util/yaml"
 )
 
 var (

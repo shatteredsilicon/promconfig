@@ -17,8 +17,8 @@ import (
 	"fmt"
 	"strings"
 
-	config_util "github.com/Percona-Lab/promconfig/common/config"
-	yaml_util "github.com/Percona-Lab/promconfig/util/yaml"
+	config_util "github.com/shatteredsilicon/promconfig/common/config"
+	yaml_util "github.com/shatteredsilicon/promconfig/util/yaml"
 )
 
 var (

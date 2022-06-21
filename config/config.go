@@ -22,10 +22,10 @@ import (
 	"strings"
 	"time"
 
-	config_util "github.com/Percona-Lab/promconfig/common/config"
-	sd_config "github.com/Percona-Lab/promconfig/discovery/config"
-	yaml_util "github.com/Percona-Lab/promconfig/util/yaml"
 	"github.com/prometheus/common/model"
+	config_util "github.com/shatteredsilicon/promconfig/common/config"
+	sd_config "github.com/shatteredsilicon/promconfig/discovery/config"
+	yaml_util "github.com/shatteredsilicon/promconfig/util/yaml"
 	"gopkg.in/yaml.v2"
 )
 
