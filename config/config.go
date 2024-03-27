@@ -137,6 +137,7 @@ type Config struct {
 	AlertingConfig AlertingConfig  `yaml:"alerting,omitempty"`
 	RuleFiles      []string        `yaml:"rule_files,omitempty"`
 	ScrapeConfigs  []*ScrapeConfig `yaml:"scrape_configs,omitempty"`
+	StorageConfig  StorageConfig   `yaml:"storage,omitempty"`
 
 	RemoteWriteConfigs []*RemoteWriteConfig `yaml:"remote_write,omitempty"`
 	RemoteReadConfigs  []*RemoteReadConfig  `yaml:"remote_read,omitempty"`
@@ -387,6 +388,46 @@ func (c *ScrapeConfig) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		}
 	}
 	return nil
+}
+
+// StorageConfig configures runtime reloadable configuration options.
+type StorageConfig struct {
+	TSDBConfig      *TSDBConfig      `yaml:"tsdb,omitempty"`
+	ExemplarsConfig *ExemplarsConfig `yaml:"exemplars,omitempty"`
+}
+
+// TSDBConfig configures runtime reloadable configuration options.
+type TSDBConfig struct {
+	// OutOfOrderTimeWindow sets how long back in time an out-of-order sample can be inserted
+	// into the TSDB. This flag is typically set while unmarshaling the configuration file and translating
+	// OutOfOrderTimeWindowFlag's duration. The unit of this flag is expected to be the same as any
+	// other timestamp in the TSDB.
+	OutOfOrderTimeWindow int64
+
+	// OutOfOrderTimeWindowFlag holds the parsed duration from the config file.
+	// During unmarshall, this is converted into milliseconds and stored in OutOfOrderTimeWindow.
+	// This should not be used directly and must be converted into OutOfOrderTimeWindow.
+	OutOfOrderTimeWindowFlag model.Duration `yaml:"out_of_order_time_window,omitempty"`
+}
+
+// UnmarshalYAML implements the yaml.Unmarshaler interface.
+func (t *TSDBConfig) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	*t = TSDBConfig{}
+	type plain TSDBConfig
+	if err := unmarshal((*plain)(t)); err != nil {
+		return err
+	}
+
+	t.OutOfOrderTimeWindow = time.Duration(t.OutOfOrderTimeWindowFlag).Milliseconds()
+
+	return nil
+}
+
+// ExemplarsConfig configures runtime reloadable configuration options.
+type ExemplarsConfig struct {
+	// MaxExemplars sets the size, in # of exemplars stored, of the single circular buffer used to store exemplars in memory.
+	// Use a value of 0 or less than 0 to disable the storage without having to restart Prometheus.
+	MaxExemplars int64 `yaml:"max_exemplars,omitempty"`
 }
 
 // AlertingConfig configures alerting and alertmanager related configs.
